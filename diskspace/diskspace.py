@@ -51,11 +51,13 @@ def bytes_to_readable(blocks):
     labels = ['B', 'Kb', 'Mb', 'Gb', 'Tb']
     return '{:.2f}{}'.format(round(byts/(1024.0**count), 2), labels[count])
 
+def calculate_percentage(size,total_size): 
+    percentage = int(size / float(total_size) * 100)
+    return percentage
 
 def print_tree(file_tree, file_tree_node, path, largest_size, total_size,
                depth=0):
-    percentage = int(file_tree_node['size'] / float(total_size) * 100)
-
+    percentage = calculate_percentage(file_tree_node['size'],total_size)
     if percentage < args.hide:
         return
 
@@ -145,6 +147,7 @@ def main():
                         order=(args.order == 'desc'))
     else:
         show_space_list(args.directory, order=(args.order == 'desc'))
+
 
 if __name__ == '__main__':
     main()
