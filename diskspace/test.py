@@ -13,8 +13,7 @@ class TestDiskpaceMethods(unittest.TestCase):
         self.abs_directory = os.path.abspath('.')
         self.cmd = 'du '
         self.cmd += self.abs_directory
-        self.file_tree = {self.abs_directory: {'print_size': '5.00Mb',
-                                          'children': [], 'size': 8}}
+        self.file_tree = {self.abs_directory: {'print_size': '5.00Mb','children': [], 'size': 8}}
         self.largest_size = 24
         self.total_size = 8
 
@@ -24,8 +23,7 @@ class TestDiskpaceMethods(unittest.TestCase):
         diskspace.print_tree(self.file_tree, self.file_tree[self.abs_directory], self.abs_directory,
                 self.largest_size, self.total_size)
         sys.stdout = sys.__stdout__ 
-        print ('Captured', capturedOutput.getvalue())
-        print (self.abs_directory)
+        self.assertEqual('5.00Mb  100%  '+self.abs_directory,capturedOutput.getvalue().strip())
         
     def test_subprocess_check_output(self):
         folder = diskspace.subprocess_check_output(self.cmd)
